@@ -100,4 +100,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5" />
+
+    <Button
+        android:id="@+id/btn_Jugar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="67dp"
+        android:text="Jugar"
+        app:layout_constraintEnd_toStartOf="@+id/tableLayout"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/switch1" />
+
+    <Button
+        android:id="@+id/btnSalir"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#F44336"
+        android:text="Salir"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_Jugar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tableLayout"
+        app:layout_constraintTop_toTopOf="@+id/btn_Jugar" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

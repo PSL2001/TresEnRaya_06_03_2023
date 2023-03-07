@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.tresenraya_06_03_23.databinding.ActivityMainBinding
 
@@ -23,13 +24,36 @@ class MainActivity : Base(), View.OnClickListener {
         setContentView(binding.root)
         pantallaCompleta()
         iniciarTablero()
-        modoDosJugadores()
+        setListeners()
+        //modoDosJugadores()
     }
 
-    private fun modoDosJugadores() {
-        dosJugadores = true
+    private fun setListeners() {
+        binding.btnSalir.setOnClickListener {
+            finish()
+        }
+        binding.btnJugar.setOnClickListener {
+            comprobarModo()
+        }
+        binding.switch1.setOnCheckedChangeListener { _, isChecked ->
+            dosJugadores = !(isChecked)
+
+        }
+    }
+
+    private fun comprobarModo() {
+        if (dosJugadores) {
+            Toast.makeText(this, "Modo 2 jugadores", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Derrota a la maquina!", Toast.LENGTH_SHORT).show()
+        }
+        iniciarJuego()
+    }
+
+    private fun iniciarJuego() {
         juego = Juego()
         ponerListeners()
+
     }
 
     private fun ponerListeners() {
@@ -68,6 +92,15 @@ class MainActivity : Base(), View.OnClickListener {
         evaluarResultado(op)
         if (op != 3) return
         juego.cambiaTurno()
+        if (!dosJugadores) {
+            var jugada = juego.piensaJugada()
+            tablero[jugada]?.setImageResource(casillas[juego.jugador])
+            juego.tableroLogico[jugada] = juego.jugador
+            var op = juego.comprobar()
+            evaluarResultado(op)
+            if (op != 3) return
+            juego.cambiaTurno()
+        }
     }
 
     private fun evaluarResultado(op: Int) {
