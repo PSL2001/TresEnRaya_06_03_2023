@@ -1,6 +1,5 @@
 package com.example.tresenraya_06_03_23
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
@@ -14,6 +13,7 @@ class MainActivity : Base(), View.OnClickListener {
     val tablero: Array<ImageView?> = Array(9, {null})
     var punt1 = 0
     var punt2 = 0
+    var dificultad = 0
 
     var dosJugadores = true
     lateinit var juego: Juego
@@ -37,6 +37,9 @@ class MainActivity : Base(), View.OnClickListener {
         }
         binding.switch1.setOnCheckedChangeListener { _, isChecked ->
             dosJugadores = !(isChecked)
+            //Si esta activado el modo 2 jugadores, tanto el label de dificultad como el spinner se desactivan
+            binding.tvDificultad.isEnabled = !dosJugadores
+            binding.spDificultad.isEnabled = !dosJugadores
 
         }
     }
@@ -93,12 +96,27 @@ class MainActivity : Base(), View.OnClickListener {
         if (op != 3) return
         juego.cambiaTurno()
         if (!dosJugadores) {
-            var jugada = juego.piensaJugada()
+            //Comprobamos la dificultad
+            dificultad = binding.spDificultad.selectedItemPosition
+            //Si la dificultad es 0, entonces es facil, si es 1, entonces es medio, si es 2, entonces es dificil
+            when (dificultad) {
+                0 -> juego.dificultad = 1
+                1 -> juego.dificultad = 2
+                2 -> juego.dificultad = 3
+            }
+            //Llamamos a la funcion piensaJugada, pasandole la dificultad
+            var jugada = juego.piensaJugada(juego.dificultad)
+            //Ponemos la imagen en el tablero
             tablero[jugada]?.setImageResource(casillas[juego.jugador])
+            //Ponemos el valor en el tablero logico
             juego.tableroLogico[jugada] = juego.jugador
+            //Comprobamos si hay ganador
             var op = juego.comprobar()
+            //Si hay ganador, mostramos el mensaje
             evaluarResultado(op)
+            //Si hay ganador, salimos de la funcion
             if (op != 3) return
+            //Si no hay ganador, cambiamos el turno
             juego.cambiaTurno()
         }
     }

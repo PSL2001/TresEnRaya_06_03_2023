@@ -1,6 +1,7 @@
 package com.example.tresenraya_06_03_23
 
 class Juego {
+    var dificultad: Int = 0
     var ganar = arrayOf(
         intArrayOf(0, 1, 2), // Horizontal
         intArrayOf(3, 4, 5), // Horizontal
@@ -48,7 +49,18 @@ class Juego {
     }
 
     //------------------------------------------------------------------------------------------
-    fun piensaJugada(): Int {
+    fun piensaJugada(dificultad: Int): Int {
+        //Dependiendo de la dificultad, cambiaremos las acciones de la maquina
+        when (dificultad) {
+            1 -> return dificultadFacil()
+            2 -> return dificultadMedia()
+            3 -> return dificultadDificil()
+        }
+        return 0
+    }
+
+    private fun dificultadDificil(): Int {
+        //La maquina juega de forma inteligente
         var op = atacar()
         if (op != -1) return op
         op = defiende()
@@ -56,6 +68,21 @@ class Juego {
         if (tableroLogico[4] == 0) return 4
         op = jugarEsquinas()
         if (op != -1) return op
+        return jugadaRandom()
+
+    }
+
+    private fun dificultadMedia(): Int {
+        //La maquina utiliza la estrategia de atacar, defender
+        var op = atacar()
+        if (op != -1) return op
+        op = defiende()
+        if (op != -1) return op
+        return jugadaRandom()
+    }
+
+    private fun dificultadFacil(): Int {
+        //La maquina juega de forma aleatoria sin pensar
         return jugadaRandom()
     }
 

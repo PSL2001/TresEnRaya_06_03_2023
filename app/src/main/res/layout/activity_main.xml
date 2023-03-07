@@ -124,4 +124,27 @@
         app:layout_constraintStart_toEndOf="@+id/tableLayout"
         app:layout_constraintTop_toTopOf="@+id/btn_Jugar" />
 
+    <!-- Dificultad -->
+    <TextView
+        android:id="@+id/tvDificultad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dificultad"
+        app:layout_constraintBottom_toTopOf="@+id/switch1"
+        app:layout_constraintEnd_toStartOf="@+id/tableLayout"
+        app:layout_constraintHorizontal_bias="0.476"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/spDificultad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:entries="@array/dificultad"
+        app:layout_constraintBottom_toTopOf="@+id/switch1"
+        app:layout_constraintEnd_toStartOf="@+id/tableLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvDificultad"
+        app:layout_constraintVertical_bias="0.5" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">TresEnRaya_06_03_23</string>
+    <!-- Array de dificultades -->
+    <string-array name="dificultad">
+        <item>Facil</item>
+        <item>Normal</item>
+        <item>Dificil</item>
+    </string-array>
 </resources>
